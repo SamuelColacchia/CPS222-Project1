@@ -14,7 +14,7 @@ cout<<"number of starting organisms: "<<endl;
 while (cin.get() != '\n') ;
 int numOFOrganisms = cin.get();
 
-cout<<"number of starting generations: "
+cout<<"number of starting generations: ";
 while (cin.get() != '\n');
 int numOfGenrations = cin.get();
 

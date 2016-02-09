@@ -1,4 +1,7 @@
 #include <iostream>
+#include <string>
+#include <sstream>
+
 using namespace std;
 int main()
 {
@@ -10,50 +13,62 @@ int main()
   enum Organism { NONE, GESTATING, LIVING, DYING };
   Organism _board[totalRows][totalCols];
 
-cout<<"number of starting organisms: "<<endl;
-while (cin.get() != '\n') ;
-int numOFOrganisms = cin.get();
-
-cout<<"number of starting generations: ";
-while (cin.get() != '\n');
-int numOfGenrations = cin.get();
-
-//more of a idea
 int board = arr[totalRows][totalCols];
-CreateBoard(totalCols,totalRows);
+
+cout<<"number of starting organisms: "<<endl;
+int numOFOrganisms = getline(cin, input);
+while (cin.get() != '\n') ;
+
+cout<<"number of starting generations: "
+int numOfGenrations = getline(cin, input);
+while (cin.get() != '\n');
+
+cout<<"organisms coordinates: (x,y)"
+
+
 
 cout << ESC << "[H" << ESC << "[J" << "Initial:" << endl;
 while(numOfGenrations>0){
   cout << ESC << "[H" << "Generation " << numOfGenrations << ":" << endl;
-  generation(totalCols,totalRows);
+
+  for(int x = 0; x<= totalCols; x++){
+    for(int y = 0; y<= totalRows; y++){
+      if (x == 0 || x == totalCols || y == 0 || y == totalRows){
+        if (x == 0  && y ==0)
+          cout<<"+";
+        else if (x == cols  && y == totalRows)
+          cout<<"+";
+        else if (x == 0  || x == totalCols)
+          if (x == cols)
+          cout<<"|\n";
+          else
+          cout<<"|";
+        else if ( y == 0  || y == totalRows)
+          cout<<"-"
+           }
+    else{
+        if(countOrganisms(x,y)<2 && Organism _board[x][y] == LIVING){
+            Organism _board[x][y] = DYING;
+            cout<<"*";}
+        else if(countOrganisms(x,y)>3 && Organism _board[x][y] == LIVING){
+          Organism _board[x][y] = DYING;
+          cout<<"*";}
+        else if(Organism _board[x][y] == DYING){
+          Organism _board[x][y] = NONE;
+          cout<<" ";}
+       else if(Organism _board[x][y] == GESTATING){
+         Organism _board[x][y] = LIVING;
+         cout<<"*";}
+        else if(Organism _board[x][y] == LIVING){
+        Organism _board[x][y] = LIVING;
+        cout<<"*";}
+        else
+          cout<<" ";}
   numOfGenrations--;
 }
-
+}}
 }
 
-int generation(cols, rows){
-for(int x = 0; x<= rows; x++){
-  for(int y = 0; y<= cols; y++){
-
-    if(Organism _board[x][y] == DYING){
-        Organism _board[x][y] = NONE;
-        coutt<<"*";}
-
-    if(Organism _board[x][y] == living){
-      if(countOrganisms(x,y)<2)
-        Organism _board[x][y] = DYING;
-      else if(countOrganisms(x,y)>3)
-        Organism _board[x][y] = DYING;
-      coutt<<"*";}
-
-    if(Organism _board[x][y] == GESTATING){
-      Organism _board[x][y] = LIVING;
-      cout<<" ";}
-
-    }
-
-    }
-  }
 
 int countOrganisms ( int x, int y){
   int count = 0;
@@ -74,21 +89,4 @@ int countOrganisms ( int x, int y){
   if(Organism[x+1][y-1] == Living || Organism[x][y] == DYING)
     count++;
   return (count);
-}
-
-int createBoard(cols,rows){
-  for (int x = 0; x<= cols; x++){
-    for(int y = 0; y<= rows; y++){
-
-       if (x == 0 || x == cols || y == 0 || y == rows){
-         if (x == 0  && y ==0)
-           cout<<"+";
-          else if (x == cols  && y == rows)
-            cout<<"+";
-          else if (x == 0  || x == cols)
-            cout<<"|";
-         else
-            cout<<"-"
-       }
-}}
 }

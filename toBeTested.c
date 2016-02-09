@@ -13,6 +13,8 @@ int main()
   enum Organism { NONE, GESTATING, LIVING, DYING };
   Organism _board[totalRows][totalCols];
 
+int board = arr[totalRows][totalCols];
+
 cout<<"number of starting organisms: "<<endl;
 int numOFOrganisms = getline(cin, input);
 while (cin.get() != '\n') ;
@@ -20,11 +22,18 @@ while (cin.get() != '\n') ;
 cout<<"number of starting generations: "
 int numOfGenrations = getline(cin, input);
 while (cin.get() != '\n');
+<<<<<<< HEAD
 
 cout<<"organisms coordinates: "
 
 //more of a idea
 int board = arr[totalRows][totalCols];
+=======
+
+cout<<"organisms coordinates: (x,y)"
+
+
+>>>>>>> master
 
 cout << ESC << "[H" << ESC << "[J" << "Initial:" << endl;
 while(numOfGenrations>0){

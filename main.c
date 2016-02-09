@@ -1,6 +1,6 @@
 #include <iostream>
-
-int main()
+using namespace std;
+int main(int activeRows,int activeCols)
 {
   std::cout << "Hello World!";
 
@@ -10,7 +10,7 @@ int arr[activeRows][activeCols]
 }
 
 
-implementation notes:
+//implementation notes:
 static const int activeRows = 18;
 static const int activeCols = 50;
 static const int totalRows = activeRows + 2;
@@ -34,7 +34,7 @@ cout << ESC << "[H" << ESC << "[J" << "Initial:" << endl;
 //The following code can be used to position the cursor to the top of the screen, so that each
 //board overwrites the previous one, giving the appearance of animation.
 //Just before starting to display the board each time after the first
-cout << ESC << "[H" << "Generation " << some variable << ":" << endl;
+//cout << ESC << "[H" << "Generation " << some variable << ":" << endl;
 
 //The following code can be used to prompt the user to press Return after each generation and
 //wait for the user to do so.

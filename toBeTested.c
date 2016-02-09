@@ -1,4 +1,7 @@
 #include <iostream>
+#include <string>
+#include <sstream>
+
 using namespace std;
 int main()
 {
@@ -11,12 +14,14 @@ int main()
   Organism _board[totalRows][totalCols];
 
 cout<<"number of starting organisms: "<<endl;
+int numOFOrganisms = getline(cin, input);
 while (cin.get() != '\n') ;
-int numOFOrganisms = cin.get();
 
 cout<<"number of starting generations: "
+int numOfGenrations = getline(cin, input);
 while (cin.get() != '\n');
-int numOfGenrations = cin.get();
+
+cout<<"organisms coordinates: "
 
 //more of a idea
 int board = arr[totalRows][totalCols];
@@ -25,16 +30,19 @@ cout << ESC << "[H" << ESC << "[J" << "Initial:" << endl;
 while(numOfGenrations>0){
   cout << ESC << "[H" << "Generation " << numOfGenrations << ":" << endl;
 
-  for(int x = 0; x<= rows; x++){
-    for(int y = 0; y<= cols; y++){
-      if (x == 0 || x == cols || y == 0 || y == rows){
+  for(int x = 0; x<= totalCols; x++){
+    for(int y = 0; y<= totalRows; y++){
+      if (x == 0 || x == totalCols || y == 0 || y == totalRows){
         if (x == 0  && y ==0)
           cout<<"+";
-        else if (x == cols  && y == rows)
+        else if (x == cols  && y == totalRows)
           cout<<"+";
-        else if (x == 0  || x == cols)
+        else if (x == 0  || x == totalCols)
+          if (x == cols)
+          cout<<"|\n";
+          else
           cout<<"|";
-        else if ( y == 0  || y == cols)
+        else if ( y == 0  || y == totalRows)
           cout<<"-"
            }
     else{
@@ -50,7 +58,7 @@ while(numOfGenrations>0){
        else if(Organism _board[x][y] == GESTATING){
          Organism _board[x][y] = LIVING;
          cout<<"*";}
-        else if(countOrganisms(x,y) && Organism _board[x][y] == LIVING){
+        else if(Organism _board[x][y] == LIVING){
         Organism _board[x][y] = LIVING;
         cout<<"*";}
         else

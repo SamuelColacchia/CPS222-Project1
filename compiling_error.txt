@@ -1,4 +1,0 @@
-working.c: In function 'int main()':
-working.c:16:9: error: expected ';' before 'while'
-         while (cin.get() != '\n');
-         ^

@@ -5,6 +5,13 @@ int main()
         int numOFOrganisms, numOfGenrations;
         char initLocations[100];
         enum Organism { NONE, GESTATING, LIVING, DYING, BORDER };
+        static const int activeRows = 18;
+        static const int activeCols = 50;
+        static const int totalRows = activeRows + 2;
+        static const int totalCols = activeCols + 2;
+
+        //TODO Known Bugs
+        //1: Does not handle user input thing well.
 
         //Get the starting orgonisms then clear the input buffer just to be safe
         cout<<"Number of starting organisms: ";
@@ -15,24 +22,52 @@ int main()
         //TODO may consider changing and improving the way of input
         cout<<"Locations: ";
         cin.getline(initLocations, sizeof(initLocations));
-        while (cin.get() != '\n');
+        //while (cin.get() != '\n');
 
         //Get the number of generations then clear the input buffer just to be safe
         cout << "Number of generations: ";
         cin >> numOfGenrations;
-        while (cin.get() != '\n') ;
+        while (cin.get() != '\n');
 
-        for (int i = 0; i < numOfGenrations; i++) {
-          
+        //Create Board
+        Organism _board[totalRows][totalCols] = {NONE};
+
+        //Asign Border cells to value Border
+        for (int x = 0; x < totalRows; x++) {
+                for (int y = 0; y < totalCols; y++) {
+                        if ( x == 0 || y == 0 || y == totalCols-1 || x == totalRows-1 ) {
+                                _board[x][y] = BORDER;
+                        }
+                }
         }
+
+        //Display inital Border ##TESTING PUPOSE##
+
+        for (int x = 0; x < totalRows; x++) {
+                cout << "|";
+                for (int y = 0; y < totalCols; y++) {
+                        if (_board[x][y] == NONE)
+                        {
+                                cout << " ";
+                        }
+                        else if (_board[x][y] == BORDER)
+                        {
+                                cout << "@";
+                        }
+                }
+                cout << "|" << endl;
+        }
+        // for (int i = 0; i < numOfGenrations; i++) {
+        //
+        // }
 
         //         char name2[50];
         // cin >> name2;
         // cout << name;
         // cout << name2;
 
-      //  Organism _board[10][10] = {NONE};
-      //  int j = 0;
+        //  Organism _board[10][10] = {NONE};
+        //  int j = 0;
         // static const char ESC = 27;
         // cout << ESC << "[H" << ESC << "[J" << "Initial:" << endl;
 

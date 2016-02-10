@@ -1,5 +1,9 @@
+//Import statement
+
 #include <iostream>
 using namespace std;
+
+
 
 enum Organism
 {
@@ -10,16 +14,21 @@ static const int activeCols = 50;
 static const int totalRows  = activeRows + 2;
 static const int totalCols  = activeCols + 2;
 
+
+//Function to count around a given position
+//Takes a board and the current x and y then loops around it
 int countOrganisms(Organism _board[totalRows][totalCols], int rows, int cols)
 {
    int count = 0;
-
+   //Nested for loop working around a given value
    for (int x = -1; x < 2; x++)
    {
       for (int y = -1; y < 2; y++)
       {
+        //If state to check what we want while also ensuring that what we are counting is not a brorder
          if (((_board[rows + x][cols + y] == DYING) || (_board[rows + x][cols + y] == LIVING)) && (_board[rows + x][cols + y] != BORDER))
          {
+           //If statement to check to ensure we do not count our starting cell
             if ((x != 0) || (y != 0))
             {
                count++;
@@ -33,6 +42,7 @@ int countOrganisms(Organism _board[totalRows][totalCols], int rows, int cols)
 
 int main()
 {
+  //Declaring local vars
    int numOFOrganisms, numOfGenrations;
 
    // Create Boards
@@ -93,13 +103,17 @@ int main()
 
 
    //The main loop
+
+   //Generations loop
    for (int g = 0; g < numOfGenrations; g++)
    {
+     //Loop through the board and draw it
       for (int x = 0; x < totalRows; x++)
       {
          cout << "|";
          for (int y = 0; y < totalCols; y++)
          {
+
             if (_board[x][y] == NONE)
             {
                cout << " ";
@@ -123,7 +137,7 @@ int main()
          }
          cout << "|" << endl;
       }
-
+      //Copy the board before we make any changes
       for (int x = 0; x < totalRows; x++)
       {
          for (int y = 0; y < totalCols; y++)
@@ -155,7 +169,7 @@ int main()
             }
          }
       }
-
+      //Change DYING and GESTATING to there final form before leaving this generation
       for (int x = 1; x < activeRows; x++)
       {
          for (int y = 1; y < activeCols; y++)

@@ -10,42 +10,56 @@ static const int activeCols = 50;
 static const int totalRows  = activeRows + 2;
 static const int totalCols  = activeCols + 2;
 
-int countOrganisms(Organism _board[][totalCols], int rows, int cols)
+int countOrganisms(Organism _board[totalRows][totalCols], int rows, int cols)
 {
    int count = 0;
 
-   if ((_board[rows + 1][cols] == LIVING) || (_board[rows + 1][cols] == DYING))
+   for (int x = -1; x < 2; x++)
    {
-      count++;
+      for (int y = -1; y < 2; y++)
+      {
+         if (((_board[rows + x][cols + y] == DYING) || (_board[rows + x][cols + y] == LIVING)) && (_board[rows + x][cols + y] != BORDER))
+         {
+            if ((x != 0) || (y != 0))
+            {
+               count++;
+            }
+         }
+      }
    }
-   if ((_board[rows][cols + 1] == LIVING) || (_board[rows][cols + 1] == DYING))
-   {
-      count++;
-   }
-   if ((_board[rows + 1][cols + 1] == LIVING) || (_board[rows + 1][cols + 1] == DYING))
-   {
-      count++;
-   }
-   if ((_board[rows - 1][cols] == LIVING) || (_board[rows - 1][cols] == DYING))
-   {
-      count++;
-   }
-   if ((_board[rows][cols - 1] == LIVING) || (_board[rows][cols - 1] == DYING))
-   {
-      count++;
-   }
-   if ((_board[rows - 1][cols - 1] == LIVING) || (_board[rows - 1][cols - 1] == DYING))
-   {
-      count++;
-   }
-   if ((_board[rows - 1][cols + 1] == LIVING) || (_board[rows - 1][cols + 1] == DYING))
-   {
-      count++;
-   }
-   if ((_board[rows + 1][cols - 1] == LIVING) || (_board[rows + 1][cols - 1] == DYING))
-   {
-      count++;
-   }
+
+   //  if ((_board[rows + 1][cols] == LIVING) || (_board[rows + 1][cols] == DYING))
+   //  {
+   //     count++;
+   //  }
+   //  if ((_board[rows][cols + 1] == LIVING) || (_board[rows][cols + 1] == DYING))
+   //  {
+   //     count++;
+   //  }
+   //  if ((_board[rows + 1][cols + 1] == LIVING) || (_board[rows + 1][cols + 1] == DYING))
+   //  {
+   //     count++;
+   //  }
+   //  if ((_board[rows - 1][cols] == LIVING) || (_board[rows - 1][cols] == DYING))
+   //  {
+   //     count++;
+   //  }
+   //  if ((_board[rows][cols - 1] == LIVING) || (_board[rows][cols - 1] == DYING))
+   //  {
+   //     count++;
+   //  }
+   //  if ((_board[rows - 1][cols - 1] == LIVING) || (_board[rows - 1][cols - 1] == DYING))
+   //  {
+   //     count++;
+   //  }
+   //  if ((_board[rows - 1][cols + 1] == LIVING) || (_board[rows - 1][cols + 1] == DYING))
+   //  {
+   //     count++;
+   //  }
+   //  if ((_board[rows + 1][cols - 1] == LIVING) || (_board[rows + 1][cols - 1] == DYING))
+   //  {
+   //     count++;
+   //  }
    return(count);
 }
 
@@ -76,8 +90,6 @@ int main()
 
 
    // Get the starting locations store them and asign them to a var,
-   // TODO may consider changing and improving the way of input
-   int initLocations[numOFOrganisms];
 
    for (int i = 0; i < numOFOrganisms; i++)
    {
@@ -122,38 +134,6 @@ int main()
    //The main loop
    for (int g = 0; g < numOfGenrations; g++)
    {
-      //Logic for the game
-      for (int x = 1; x < activeRows + 1; x++)
-      {
-         for (int y = 1; y < activeCols + 1; y++)
-         {
-            _oldboard[x][y] = _board[x][y];
-            if (_oldboard[x][y] == LIVING)
-            {
-               if ((countOrganisms(_oldboard, x, y) < 2) || (countOrganisms(_oldboard, x, y) > 3))
-               {
-                  _board[x][y] = DYING;
-               }
-            }
-            else if (_oldboard[x][y] == NONE)
-            {
-               if ((countOrganisms(_oldboard, x, y) == 2) || (countOrganisms(_oldboard, x, y) == 3))
-               {
-                  _board[x][y] = GESTATING;
-               }
-            }
-            else if (_oldboard[x][y] == DYING)
-            {
-               _board[x][y] = NONE;
-            }
-            else if (_oldboard[x][y] == GESTATING)
-            {
-               _board[x][y] = LIVING;
-            }
-         }
-      }
-
-      //Draw the Board
       for (int x = 0; x < totalRows; x++)
       {
          cout << "|";
@@ -173,15 +153,63 @@ int main()
             }
             else if (_board[x][y] == GESTATING)
             {
-               cout << "*";
+               cout << "G";
             }
             else if (_board[x][y] == DYING)
             {
-              cout << "^";
+               cout << "D";
             }
          }
          cout << "|" << endl;
       }
+
+      for (int x = 0; x < totalRows; x++)
+      {
+         for (int y = 0; y < totalCols; y++)
+         {
+            _oldboard[x][y] = _board[x][y];
+         }
+      }
+
+      //Logic for the game
+      for (int x = 0; x < totalRows; x++)
+      {
+         for (int y = 0; y < totalCols; y++)
+         {
+            if (_oldboard[x][y] == LIVING)
+            {
+               if ((countOrganisms(_oldboard, x, y) < 2) || (countOrganisms(_oldboard, x, y) > 3))
+               {
+
+                  _board[x][y] = DYING;
+               }
+            }
+            else if (_oldboard[x][y] == NONE)
+            {
+               if (countOrganisms(_oldboard, x, y) == 3)
+               {
+                   
+                  _board[x][y] = GESTATING;
+               }
+            }
+         }
+      }
+
+      for (int x = 1; x < activeRows; x++)
+      {
+         for (int y = 1; y < activeCols; y++)
+         {
+            if (_board[x][y] == DYING)
+            {
+               _board[x][y] = NONE;
+            }
+            else if (_board[x][y] == GESTATING)
+            {
+               _board[x][y] = LIVING;
+            }
+         }
+      }
+
       cout << "Press RETURN to continue";
       while (cin.get() != '\n')
       {

@@ -41,7 +41,8 @@ int countOrganisms(Organism _board[totalRows][totalCols], int rows, int cols)
    return(count);
 }
 
-
+//Prints the board
+//Given a board with a know length prints out the board with a border
 int printboard(Organism _board[totalRows][totalCols])
 {
    for (int x = 0; x < totalRows; x++)

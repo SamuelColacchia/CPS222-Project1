@@ -9,11 +9,11 @@ enum Organism
 {
    NONE, GESTATING, LIVING, DYING, BORDER
 };
-static const int activeRows = 18;
-static const int activeCols = 50;
-static const int totalRows  = activeRows + 2;
-static const int totalCols  = activeCols + 2;
-static const char ESC = 27;
+static const int  activeRows = 18;
+static const int  activeCols = 50;
+static const int  totalRows  = activeRows + 2;
+static const int  totalCols  = activeCols + 2;
+static const char ESC        = 27;
 
 
 //Function to count around a given position
@@ -21,15 +21,16 @@ static const char ESC = 27;
 int countOrganisms(Organism _board[totalRows][totalCols], int rows, int cols)
 {
    int count = 0;
+
    //Nested for loop working around a given value
    for (int x = -1; x < 2; x++)
    {
       for (int y = -1; y < 2; y++)
       {
-        //If state to check what we want while also ensuring that what we are counting is not a brorder
+         //If state to check what we want while also ensuring that what we are counting is not a brorder
          if (((_board[rows + x][cols + y] == DYING) || (_board[rows + x][cols + y] == LIVING)) && (_board[rows + x][cols + y] != BORDER))
          {
-           //If statement to check to ensure we do not count our starting cell
+            //If statement to check to ensure we do not count our starting cell
             if ((x != 0) || (y != 0))
             {
                count++;
@@ -41,9 +42,43 @@ int countOrganisms(Organism _board[totalRows][totalCols], int rows, int cols)
 }
 
 
+int printboard(Organism _board[totalRows][totalCols])
+{
+   for (int x = 0; x < totalRows; x++)
+   {
+      cout << "|";
+      for (int y = 0; y < totalCols; y++)
+      {
+         if (_board[x][y] == NONE)
+         {
+            cout << " ";
+         }
+         else if (_board[x][y] == LIVING)
+         {
+            cout << "#";
+         }
+         else if (_board[x][y] == BORDER)
+         {
+            cout << "@";
+         }
+         else if (_board[x][y] == GESTATING)
+         {
+            cout << "G";
+         }
+         else if (_board[x][y] == DYING)
+         {
+            cout << "D";
+         }
+      }
+      cout << "|" << endl;
+   }
+   return 0;
+}
+
+
 int main()
 {
-  //Declaring local vars
+   //Declaring local vars
    int numOFOrganisms, numOfGenrations;
 
    // Create Boards
@@ -101,46 +136,15 @@ int main()
          }
       }
    }
-   cout <<
-   // Commented out because causing errors
-   //ESC <<
-   "Initial:" << endl;
-   for (int x = 0; x < totalRows; x++)
-   {
-      cout << "|";
-      for (int y = 0; y < totalCols; y++)
-      {
 
-         if (_board[x][y] == NONE)
-         {
-            cout << " ";
-         }
-         else if (_board[x][y] == LIVING)
-         {
-            cout << "#";
-         }
-         else if (_board[x][y] == BORDER)
-         {
-            cout << "@";
-         }
-         else if (_board[x][y] == GESTATING)
-         {
-            cout << "G";
-         }
-         else if (_board[x][y] == DYING)
-         {
-            cout << "D";
-         }
-      }
-      cout << "|" << endl;
-   }
-
+   //Print the initial board
+   //THe code you provided to move the screen gave weird outputs in windows so it was removed
+   cout << "Initial:" << endl;
+   printboard(_board);
    cout << "Press RETURN to continue";
    while (cin.get() != '\n')
    {
    }
-
-
 
    //The main loop
 
@@ -165,7 +169,6 @@ int main()
             {
                if ((countOrganisms(_oldboard, x, y) < 2) || (countOrganisms(_oldboard, x, y) > 3))
                {
-
                   _board[x][y] = DYING;
                }
             }
@@ -173,7 +176,6 @@ int main()
             {
                if (countOrganisms(_oldboard, x, y) == 3)
                {
-
                   _board[x][y] = GESTATING;
                }
             }
@@ -194,42 +196,13 @@ int main()
             }
          }
       }
-
       //Loop through the board and draw it
-      cout <<
-      //ESC <<
-      //Commented out causeing errors
-       "Generation " << g << ":" << endl;
+      //What you provided for this with escape caused weird errors running on windows
+      //Where g = generations
+      cout << "Generation " << ":" << g << endl;
 
-       for (int x = 0; x < totalRows; x++)
-       {
-          cout << "|";
-          for (int y = 0; y < totalCols; y++)
-          {
+      printboard(_board);
 
-             if (_board[x][y] == NONE)
-             {
-                cout << " ";
-             }
-             else if (_board[x][y] == LIVING)
-             {
-                cout << "#";
-             }
-             else if (_board[x][y] == BORDER)
-             {
-                cout << "@";
-             }
-             else if (_board[x][y] == GESTATING)
-             {
-                cout << "G";
-             }
-             else if (_board[x][y] == DYING)
-             {
-                cout << "D";
-             }
-          }
-          cout << "|" << endl;
-       }
 
       cout << "Press RETURN to continue";
       while (cin.get() != '\n')

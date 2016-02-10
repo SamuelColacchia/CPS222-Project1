@@ -13,6 +13,7 @@ static const int activeRows = 18;
 static const int activeCols = 50;
 static const int totalRows  = activeRows + 2;
 static const int totalCols  = activeCols + 2;
+static const char ESC = 27;
 
 
 //Function to count around a given position
@@ -65,17 +66,18 @@ int main()
 
 
    // Get and set starting locations
+   cout << "Locations: ";
    for (int i = 0; i < numOFOrganisms; i++)
    {
       int a;
       int b;
-      cout << "Locations: ";
+
       cin >> a;
       cin >> b;
       _board[a][b] = LIVING;
-      while (cin.get() != '\n')
-      {
-      }
+      // while (cin.get() != '\n')
+      // {
+      // }
    }
 
 
@@ -99,6 +101,44 @@ int main()
          }
       }
    }
+   cout <<
+   // Commented out because causing errors
+   //ESC <<
+   "Initial:" << endl;
+   for (int x = 0; x < totalRows; x++)
+   {
+      cout << "|";
+      for (int y = 0; y < totalCols; y++)
+      {
+
+         if (_board[x][y] == NONE)
+         {
+            cout << " ";
+         }
+         else if (_board[x][y] == LIVING)
+         {
+            cout << "#";
+         }
+         else if (_board[x][y] == BORDER)
+         {
+            cout << "@";
+         }
+         else if (_board[x][y] == GESTATING)
+         {
+            cout << "G";
+         }
+         else if (_board[x][y] == DYING)
+         {
+            cout << "D";
+         }
+      }
+      cout << "|" << endl;
+   }
+
+   cout << "Press RETURN to continue";
+   while (cin.get() != '\n')
+   {
+   }
 
 
 
@@ -107,36 +147,6 @@ int main()
    //Generations loop
    for (int g = 0; g < numOfGenrations; g++)
    {
-     //Loop through the board and draw it
-      for (int x = 0; x < totalRows; x++)
-      {
-         cout << "|";
-         for (int y = 0; y < totalCols; y++)
-         {
-
-            if (_board[x][y] == NONE)
-            {
-               cout << " ";
-            }
-            else if (_board[x][y] == LIVING)
-            {
-               cout << "#";
-            }
-            else if (_board[x][y] == BORDER)
-            {
-               cout << "@";
-            }
-            else if (_board[x][y] == GESTATING)
-            {
-               cout << "G";
-            }
-            else if (_board[x][y] == DYING)
-            {
-               cout << "D";
-            }
-         }
-         cout << "|" << endl;
-      }
       //Copy the board before we make any changes
       for (int x = 0; x < totalRows; x++)
       {
@@ -184,6 +194,42 @@ int main()
             }
          }
       }
+
+      //Loop through the board and draw it
+      cout <<
+      //ESC <<
+      //Commented out causeing errors
+       "Generation " << g << ":" << endl;
+
+       for (int x = 0; x < totalRows; x++)
+       {
+          cout << "|";
+          for (int y = 0; y < totalCols; y++)
+          {
+
+             if (_board[x][y] == NONE)
+             {
+                cout << " ";
+             }
+             else if (_board[x][y] == LIVING)
+             {
+                cout << "#";
+             }
+             else if (_board[x][y] == BORDER)
+             {
+                cout << "@";
+             }
+             else if (_board[x][y] == GESTATING)
+             {
+                cout << "G";
+             }
+             else if (_board[x][y] == DYING)
+             {
+                cout << "D";
+             }
+          }
+          cout << "|" << endl;
+       }
 
       cout << "Press RETURN to continue";
       while (cin.get() != '\n')

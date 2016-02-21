@@ -14,7 +14,7 @@ static const int  activeCols = 50;
 static const int  totalRows  = activeRows + 2;
 static const int  totalCols  = activeCols + 2;
 static const char ESC        = 27;
-
+//ff
 
 //Function to count around a given position
 //Takes a board and the current x and y then loops around it
